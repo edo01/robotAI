@@ -12,9 +12,11 @@ short robotID = 1;
   
 const char ssid[] = "";
 const char pass[] = ""; 
+
+const int port = 8080;
   
 // Creazione di un server in ascolto sulla porta 80 
-WiFiServer server(8000);  
+WiFiServer server(port);  
 
 int pinLed = LED_BUILTIN;
 
@@ -59,11 +61,14 @@ void setup(){
   
   // Avvia il server  
   server.begin();  
-  Serial.println("Server avviato");  
+  Serial.print("Server in ascolto sulla porta: ");
+  Serial.println(port);  
   
   // Stampa l'indirizzo IP  
   Serial.print("IP ATTUALE :");   
   Serial.println(WiFi.localIP()); // Restituisce i'IP della scheda  
+ 
+  // Avvio del sistema
   digitalWrite(pinLed, LOW);
   setPins();
   setPower(200);
@@ -116,10 +121,9 @@ void loop(){
   else stopMotors();
 
   
-  // intestazione pagina html  
-  client.println("HTTP/1.1 200 OK");  
-  client.println("Content-Type: text");  
-  client.println(""); //  non dimenticare questa linea 
-  client.println("ok");
+  /*
+	risposta al client 
+	client.println("something");  
+  */
   delay(1);   
 }
